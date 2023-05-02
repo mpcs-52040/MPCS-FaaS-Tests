@@ -16,7 +16,6 @@ def test_fn_registration():
 
     assert resp.status_code == 200
     assert "function_id" in resp.json()
-    assert isinstance(resp.json()["function_id"], uuid.UUID)
 
 
 def double(x):

@@ -1,5 +1,5 @@
 import requests
-from faas.client.serialize import serialize, deserialize
+from .serialize import serialize, deserialize
 import logging
 import time
 import random

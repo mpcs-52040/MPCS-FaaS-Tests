@@ -14,7 +14,7 @@ def test_fn_registration():
                          json={"name": "hello",
                                "payload": "payload"})
 
-    assert resp.status_code == 200
+    assert resp.status_code == 201
     assert "function_id" in resp.json()
 
 
@@ -34,7 +34,7 @@ def test_execute_fn():
                                "payload": serialize(((2,), {}))})
 
     print(resp)
-    assert resp.status_code == 200
+    assert resp.status_code == 201
     assert "task_id" in resp.json()
 
     task_id = resp.json()["task_id"]
@@ -57,7 +57,7 @@ def test_roundtrip():
                          json={"function_id": fn_info['function_id'],
                                "payload": serialize(((number,), {}))})
 
-    assert resp.status_code == 200
+    assert resp.status_code == 201
     assert "task_id" in resp.json()
 
     task_id = resp.json()["task_id"]

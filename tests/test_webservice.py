@@ -9,17 +9,28 @@ base_url = "http://127.0.0.1:8000/"
 valid_statuses = ["QUEUED", "RUNNING", "COMPLETED", "FAILED"]
 
 
-def test_fn_registration():
+def test_fn_registration_invalid():
+    # Using a non-serialized payload data
     resp = requests.post(base_url + "register_function",
                          json={"name": "hello",
                                "payload": "payload"})
 
-    assert resp.status_code == 200
-    assert "function_id" in resp.json()
+    assert resp.status_code == 500
 
 
 def double(x):
     return x * 2
+
+
+def test_fn_registration():
+    # Using a real serialized function
+    serialized_fn = serialize(double)
+    resp = requests.post(base_url + "register_function",
+                         json={"name": "double",
+                               "payload": serialized_fn})
+
+    assert resp.status_code == 200
+    assert "function_id" in resp.json()
 
 
 def test_execute_fn():
